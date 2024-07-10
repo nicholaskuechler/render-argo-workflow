@@ -1,0 +1,148 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: workflow1
+spec:
+  templates:
+    - name: main
+      dag:
+        tasks:
+          - name: task1
+            templateRef:
+              name: workflow1sub
+              template: main
+              clusterScope: true
+
+          - name: task2
+            template: template-task2
+            arguments:
+              parameters:
+                - name: param1
+                  value: "START"
+            depends: task1
+
+          - name: task3
+            template: template-task3
+            depends: task1
+
+          - name: task4
+            template: template-task4
+            arguments:
+              artifacts:
+                - name: artifact1
+                  from: "{{tasks.task1.outputs.artifacts.artifact1}}"
+            depends: task1
+
+          - name: task5
+            template: template-task5
+            arguments:
+              artifacts:
+                - name: artifact2
+                  from: "{{tasks.task4.outputs.artifacts.artifact2}}"
+            depends: task4
+
+          - name: task6
+            template: template-task6
+            arguments:
+              artifacts:
+                - name: artifact2
+                  from: "{{tasks.task4.outputs.artifacts.artifact2}}"
+            depends: task4
+
+          - name: task7
+            template: template-task7
+            arguments:
+              artifacts:
+                - name: artifact1
+                  from: "{{tasks.task1.outputs.artifacts.artifact1}}"
+            depends: task1 && task6
+
+          - name: task8
+            template: template-task2
+            arguments:
+              parameters:
+                - name: param1
+                  value: "FINISH"
+            depends: task6 && task3 && task2
+
+    - name: template-task2
+      inputs:
+        parameters:
+          - name: param1
+      container:
+        image: x.azurecr.io/task2
+
+    - name: template-task3
+      container:
+        image: x.azurecr.io/task3
+
+    - name: template-task4
+      inputs:
+        artifacts:
+          - name: artifact1
+      outputs:
+        artifacts:
+          - name: artifact2
+            fromExpression: "inputs.parameters['arg1'] == true ? tasks.new.outputs.artifacts['artifact2'] : tasks.previous.outputs.artifacts['artifact2']"
+      dag:
+        tasks:
+          - name: new
+            when: "{{workflow.parameters.arg1}} == false"
+            template: template-new-task4
+            arguments:
+              artifacts:
+                - name: artifact1
+                  from: "{{inputs.artifacts.artifact1}}"
+
+          - name: previous
+            when: "{{workflow.parameters.arg1}} == true"
+            template: template-previous-task4
+            arguments:
+              artifacts:
+                - name: artifact1
+                  from: "{{inputs.artifacts.artifact1}}"
+
+
+    - name: template-new-task4
+      inputs:
+        artifacts:
+          - name: artifact1
+      outputs:
+        artifacts:
+          - name: artifact2
+      container:
+        image: x.azurecr.io/new-task4
+
+    - name: template-previous-task4
+      inputs:
+        artifacts:
+          - name: artifact1
+      outputs:
+        artifacts:
+          - name: artifact2
+      container:
+        image: x.azurecr.io/previous-task4
+
+    - name: template-task5
+      inputs:
+        artifacts:
+            - name: artifact2
+      container:
+        image: x.azurecr.io/task5
+
+
+    - name: template-task6
+      inputs:
+        artifacts:
+          - name: artifact2
+      container:
+        image: x.azurecr.io/task6
+
+    - name: template-task7
+      inputs:
+        artifacts:
+          - name: artifact1
+      container:
+        image: x.azurecr.io/task7
+
+  entrypoint: main

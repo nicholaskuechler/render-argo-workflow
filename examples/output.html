@@ -1,0 +1,147 @@
+<html><head><meta http-equiv='refresh' content='100'/><style>pre {margin:0}</style><script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script></head><body><div class="mermaid">graph LR;
+subgraph workflow1
+    direction LR
+    style workflow1 fill:#fafaff;
+    workflow1__main{{<span style="font-size:20px">main</span>}}
+    style workflow1__main fill:lightgray,stroke:#aaa;
+    workflow1__main__task1[<span style="font-size:20px">task1</span>]
+    style workflow1__main__task1 fill:white;
+    workflow1__main__task1__artifact1(<b><span style="font-size:20px">artifact1</span></b>)
+    style workflow1__main__task1__artifact1 fill:gold,stroke:#222;
+    workflow1__main__task2[<span style="font-size:20px">task2</span><pre style="color:green">image: task2</pre><pre style="color:dimgray;margin-top:8px">param1=START<br></pre>]
+    style workflow1__main__task2 fill:white;
+    workflow1__main__task3[<span style="font-size:20px">task3</span><pre style="color:green">image: task3</pre>]
+    style workflow1__main__task3 fill:white;
+    workflow1__main__task4[<span style="font-size:20px">task4</span>]
+    style workflow1__main__task4 fill:white;
+    workflow1__main__task4__artifact2(<b><span style="font-size:20px">artifact2</span></b>)
+    style workflow1__main__task4__artifact2 fill:gold,stroke:#222;
+    workflow1__main__task5[<span style="font-size:20px">task5</span><pre style="color:green">image: task5</pre>]
+    style workflow1__main__task5 fill:white;
+    workflow1__main__task6[<span style="font-size:20px">task6</span><pre style="color:green">image: task6</pre>]
+    style workflow1__main__task6 fill:white;
+    workflow1__main__task7[<span style="font-size:20px">task7</span><pre style="color:green">image: task7</pre>]
+    style workflow1__main__task7 fill:white;
+    workflow1__main__task8[<span style="font-size:20px">task8</span><pre style="color:green">image: task2</pre><pre style="color:dimgray;margin-top:8px">param1=FINISH<br></pre>]
+    style workflow1__main__task8 fill:white;
+    workflow1__template-task4{{<span style="font-size:20px">template-task4</span>}}
+    style workflow1__template-task4 fill:lightgray,stroke:#aaa;
+    workflow1__template-task4__artifact1(<b><span style="font-size:20px">artifact1</span></b>)
+    style workflow1__template-task4__artifact1 fill:gold,stroke:#222;
+    workflow1__template-task4__new[<span style="font-size:20px">new</span><pre style="color:red">when: workflow.parameters.arg1 == false</pre><pre style="color:green">image: new-task4</pre>]
+    style workflow1__template-task4__new fill:white;
+    workflow1__template-task4__new__artifact2(<b><span style="font-size:20px">artifact2</span></b>)
+    style workflow1__template-task4__new__artifact2 fill:gold,stroke:#222;
+    workflow1__template-task4__previous[<span style="font-size:20px">previous</span><pre style="color:red">when: workflow.parameters.arg1 == true</pre><pre style="color:green">image: previous-task4</pre>]
+    style workflow1__template-task4__previous fill:white;
+    workflow1__template-task4__previous__artifact2(<b><span style="font-size:20px">artifact2</span></b>)
+    style workflow1__template-task4__previous__artifact2 fill:gold,stroke:#222;
+end
+subgraph workflow1sub
+    direction LR
+    style workflow1sub fill:#fafaff;
+    workflow1sub__main{{<span style="font-size:20px">main</span>}}
+    style workflow1sub__main fill:lightgray,stroke:#aaa;
+    workflow1sub__main__task1[<span style="font-size:20px">task1</span><pre style="color:green">image: task1</pre>]
+    style workflow1sub__main__task1 fill:white;
+    workflow1sub__main__task2[<span style="font-size:20px">task2</span><pre style="color:green">image: task2</pre>]
+    style workflow1sub__main__task2 fill:white;
+    workflow1sub__main__task2__artifact1(<b><span style="font-size:20px">artifact1</span></b>)
+    style workflow1sub__main__task2__artifact1 fill:gold,stroke:#222;
+    workflow1sub__main__task3[<span style="font-size:20px">task3</span><pre style="color:green">image: task3</pre>]
+    style workflow1sub__main__task3 fill:white;
+end
+subgraph workflow2
+    direction LR
+    style workflow2 fill:#fafaff;
+    workflow2__main{{<span style="font-size:20px">main</span>}}
+    style workflow2__main fill:lightgray,stroke:#aaa;
+    workflow2__main__task1[<span style="font-size:20px">task1</span><pre style="color:green">image: task1</pre>]
+    style workflow2__main__task1 fill:white;
+    workflow2__main__task10[<span style="font-size:20px">task10</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: task103</pre>]
+    style workflow2__main__task10 fill:white;
+    workflow2__main__task11[<span style="font-size:20px">task11</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: task103</pre>]
+    style workflow2__main__task11 fill:white;
+    workflow2__main__task12[<span style="font-size:20px">task12</span><pre style="color:green">image: task103</pre>]
+    style workflow2__main__task12 fill:white;
+    workflow2__main__task13[<span style="font-size:20px">task13</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: task103</pre>]
+    style workflow2__main__task13 fill:white;
+    workflow2__main__task2[<span style="font-size:20px">task2</span><pre style="color:green">image: task2</pre>]
+    style workflow2__main__task2 fill:white;
+    workflow2__main__task3[<span style="font-size:20px">task3</span><pre style="color:green">image: task38</pre>]
+    style workflow2__main__task3 fill:white;
+    workflow2__main__task4[<span style="font-size:20px">task4</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: task4</pre>]
+    style workflow2__main__task4 fill:white;
+    workflow2__main__task4__artifact1(<b><span style="font-size:20px">artifact1</span></b>)
+    style workflow2__main__task4__artifact1 fill:gold,stroke:#222;
+    workflow2__main__task5[<span style="font-size:20px">task5</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: azure-cli</pre>]
+    style workflow2__main__task5 fill:white;
+    workflow2__main__task6[<span style="font-size:20px">task6</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: task6</pre>]
+    style workflow2__main__task6 fill:white;
+    workflow2__main__task6__artifact2(<b><span style="font-size:20px">artifact2</span></b>)
+    style workflow2__main__task6__artifact2 fill:gold,stroke:#222;
+    workflow2__main__task7[<span style="font-size:20px">task7</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: task78</pre>]
+    style workflow2__main__task7 fill:white;
+    workflow2__main__task8[<span style="font-size:20px">task8</span><pre style="color:green">image: task38</pre>]
+    style workflow2__main__task8 fill:white;
+    workflow2__main__task9[<span style="font-size:20px">task9</span><pre style="color:red">when: tasks.task1.outputs.parameters.output1 == false</pre><pre style="color:green">image: busybox</pre>]
+    style workflow2__main__task9 fill:white;
+end
+workflow1__main --> workflow1__main__task1
+workflow1__main__task1 -.-> workflow1sub__main
+workflow1__main__task1 -.-> workflow1__main__task1__artifact1
+workflow1__main__task1 --> workflow1__main__task2
+workflow1__main__task1 --> workflow1__main__task3
+workflow1__main__task1 --> workflow1__main__task4
+workflow1__main__task4 -.-> workflow1__template-task4
+workflow1__main__task4 -.-> workflow1__main__task4__artifact2
+workflow1__main__task1__artifact1 -.-> workflow1__main__task4
+workflow1__main__task4 --> workflow1__main__task5
+workflow1__main__task4__artifact2 -.-> workflow1__main__task5
+workflow1__main__task4 --> workflow1__main__task6
+workflow1__main__task4__artifact2 -.-> workflow1__main__task6
+workflow1__main__task1 --> workflow1__main__task7
+workflow1__main__task6 --> workflow1__main__task7
+workflow1__main__task1__artifact1 -.-> workflow1__main__task7
+workflow1__main__task6 --> workflow1__main__task8
+workflow1__main__task3 --> workflow1__main__task8
+workflow1__main__task2 --> workflow1__main__task8
+workflow1__template-task4__artifact1 --- workflow1__template-task4
+workflow1__template-task4 --> workflow1__template-task4__new
+workflow1__template-task4 --> workflow1__template-task4__previous
+workflow1__template-task4__new -.-> workflow1__template-task4__new__artifact2
+workflow1__template-task4__artifact1 -.-> workflow1__template-task4__new
+workflow1__template-task4__previous -.-> workflow1__template-task4__previous__artifact2
+workflow1__template-task4__artifact1 -.-> workflow1__template-task4__previous
+workflow1sub__main --> workflow1sub__main__task1
+workflow1sub__main__task1 --> workflow1sub__main__task2
+workflow1sub__main__task2 -.-> workflow1sub__main__task2__artifact1
+workflow1sub__main__task2 --> workflow1sub__main__task3
+workflow1sub__main__task2__artifact1 -.-> workflow1sub__main__task3
+workflow2__main --> workflow2__main__task1
+workflow2__main__task2 --> workflow2__main__task10
+workflow2__main__task4 --> workflow2__main__task10
+workflow2__main__task5 --> workflow2__main__task10
+workflow2__main__task6 --> workflow2__main__task11
+workflow2__main__task7 --> workflow2__main__task11
+workflow2__main__task8 --> workflow2__main__task12
+workflow2__main__task7 --> workflow2__main__task12
+workflow2__main__task3 --> workflow2__main__task13
+workflow2__main__task8 --> workflow2__main__task13
+workflow2__main__task1 --> workflow2__main__task2
+workflow2__main__task2 --> workflow2__main__task3
+workflow2__main__task2 --> workflow2__main__task4
+workflow2__main__task4 -.-> workflow2__main__task4__artifact1
+workflow2__main__task4 --> workflow2__main__task5
+workflow2__main__task5 --> workflow2__main__task6
+workflow2__main__task6 -.-> workflow2__main__task6__artifact2
+workflow2__main__task6 --> workflow2__main__task7
+workflow2__main__task3 --> workflow2__main__task8
+workflow2__main__task7 --> workflow2__main__task8
+workflow2__main__task8 --> workflow2__main__task9
+workflow2__main__task4 --> workflow2__main__task9
+workflow2__main__task6 --> workflow2__main__task9
+workflow2__main__task7 --> workflow2__main__task9
+linkStyle 0,3,4,5,9,11,13,14,16,17,18,20,21,26,27,29,31,32,33,34,35,36,37,38,39,40,41,42,43,45,46,48,49,50,51,52,53,54 stroke:#888,stroke-width:2px;
+linkStyle 1,6 stroke:#888,stroke-width:2px;
+linkStyle 2,7,8,10,12,15,19,22,23,24,25,28,30,44,47 stroke:#fa0,stroke-width:2px;</div></body></html>

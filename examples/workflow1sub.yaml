@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: workflow1sub
+spec:
+  templates:
+    - name: main
+      outputs:
+        artifacts:
+          - name: artifact1
+            from: "{{tasks.task2.outputs.artifacts.artifact1}}"
+      dag:
+        tasks:
+          - name: task1
+            template: template-task1
+
+          - name: task2
+            template: template-task2
+            dependencies:
+              - task1
+
+          - name: task3
+            template: template-task3
+            arguments:
+              artifacts:
+                - name: artifact1
+                  from: "{{tasks.task2.outputs.artifacts.artifact1}}"
+            dependencies:
+              - task2
+
+    - name: template-task1
+      container:
+        image: x.azurecr.io/task1
+
+    - name:  template-task2
+      outputs:
+        artifacts:
+          - name: artifact1
+      container:
+        image: x.azurecr.io/task2
+
+    - name: template-task3
+      inputs:
+        artifacts:
+          - name: artifact1
+      container:
+        image: x.azurecr.io/task3
+
+  entrypoint: main
