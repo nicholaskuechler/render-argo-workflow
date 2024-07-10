@@ -10,4 +10,4 @@ python ./render-workflows.py <output-html-file.html> <workflow-file-1.yaml> <wor
 
 ### Output sample
 
-![rendered-workflow](https://github.com/emanueldima/render-argo-worklfow/blob/main/examples/output.png?raw=true)
+![rendered-workflow](./examples/output.png)
